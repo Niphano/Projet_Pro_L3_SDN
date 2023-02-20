@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditExerciceController!{% endblock %}
+
+{% block body %}
+
+    <div>
+        <form method="post">
+            <div class="form-group">
+                <label>Titre de l'exercice</label>
+                <input required type="text" class="form-control" id="title" name="title">
+            </div>
+            <div class="form-group">
+                <label for="enonce">Enoncé</label>
+                <textarea class="form-control" id="enonce"  rows="3" name="enonce"></textarea>
+            </div>
+            <div class="form-group">
+                <label >Résultat de l'exercice</label>
+                <input required type="text" class="form-control" id="resultat" name="resultat">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
