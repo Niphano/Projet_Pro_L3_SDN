@@ -17,35 +17,72 @@ class PageExerciceController extends AbstractController
     /**
      * @Route("/page/exercice", name="app_page_exercice")
      */
-    public function index(EntityManagerInterface $em): Response
+    /*
+    public function index(Request $request, ExercicesRepository $exercicesRepository, EntityManagerInterface $em): Response
     {
         $exercices = $em->getRepository(Exercices::class)->findAll();
+        $languageCategoryId = $request->request->get('languageCategory');
+        $thematiqueCategoryId = $request->request->get('thematiqueCategory');
+
+        $languageCategory = null;
+        $thematiqueCategory = null;
+
+        if ($languageCategoryId) {
+            $languageCategory = $em->getRepository(LanguageCategory::class)->find($languageCategoryId);
+        }
+
+        if ($thematiqueCategoryId) {
+            $thematiqueCategory = $em->getRepository(ThematiqueCategory::class)->find($thematiqueCategoryId);
+        }
+
+        $exercices = $exercicesRepository->findByCategory($languageCategory, $thematiqueCategory);
+
+        $languageCategories = $em->getRepository(LanguageCategory::class)->findAll();
+        $thematiqueCategories = $em->getRepository(ThematiqueCategory::class)->findAll();
 
         return $this->render('page_exercice/index.html.twig', [
-            'controller_name' => 'PageExerciceController',
             'exercices' => $exercices,
+            'languageCategories' => $languageCategories,
+            'thematiqueCategories' => $thematiqueCategories,
+            'languageCategoryId' => $languageCategoryId,
+            'thematiqueCategoryId' => $thematiqueCategoryId,
         ]);
     }
-/*
-    /**
-     * @Route("/page/exercice/filter", name="app_page_exercice_filter")
-     */
-    /*
-    public function filter(Request $request, ExercicesRepository $exercicesRepository, EntityManagerInterface $em): Response
+    */
+
+    public function index(Request $request, ExercicesRepository $exerciceRepository)
     {
         $languageCategory = $request->request->get('languageCategory');
         $thematiqueCategory = $request->request->get('thematiqueCategory');
-        $exercices = $exercicesRepository->findByCategory($languageCategory, $thematiqueCategory);
-        $languageCategories = $em->getRepository(LanguageCategory::class)->findAll();
-        $thematiqueCategories = $em->getRepository(ThematiqueCategory::class)->findAll();
-        if (isset($languageCategories) && isset($thematiqueCategories)) {
-            return $this->render('page_exercice/index.html.twig', [
-                'exercices' => $exercices,
-                'languageCategories' => $languageCategories,
-                'thematiqueCategories' => $thematiqueCategories
-            ]);
+
+        $exercices = $exerciceRepository->createQueryBuilder('e')
+            ->leftJoin('e.languageCategories', 'lc')
+            ->leftJoin('e.thematiqueCategories', 'tc');
+
+        if ($languageCategory && $thematiqueCategory) {
+            $exercices->where('lc.id = :languageCategory')
+                ->andWhere('tc.id = :thematiqueCategory')
+                ->setParameters(['languageCategory' => $languageCategory, 'thematiqueCategory' => $thematiqueCategory]);
+        } elseif ($languageCategory) {
+            $exercices->where('lc.id = :languageCategory')
+                ->setParameter('languageCategory', $languageCategory);
+        } elseif ($thematiqueCategory) {
+            $exercices->where('tc.id = :thematiqueCategory')
+                ->setParameter('thematiqueCategory', $thematiqueCategory);
         }
-    }*/
+
+        $exercices = $exercices->getQuery()->getResult();
+
+        $languageCategories = $this->getDoctrine()->getRepository(LanguageCategory::class)->findAll();
+        $thematiqueCategories = $this->getDoctrine()->getRepository(ThematiqueCategory::class)->findAll();
+
+        return $this->render('page_exercice/index.html.twig', [
+            'exercices' => $exercices,
+            'languageCategories' => $languageCategories,
+            'thematiqueCategories' => $thematiqueCategories,
+        ]);
+    }
+
 
 
 }
