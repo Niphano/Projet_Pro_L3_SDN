@@ -83,6 +83,16 @@ class PageExerciceController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("page/exercice/{id}", name="app_exercice_show")
+     */
+    public function show(Request $request, Exercices $exercice): Response
+    {
+        return $this->render('page_exercice/show.html.twig', [
+            'exercice' => $exercice,
+        ]);
+    }
+
 
 
 }

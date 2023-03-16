@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ exercice.title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ exercice.title }}</h1>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">{{ exercice.enonce | raw }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2 class="Page_Exo_Ace">Code Editor</h2>
+            <textarea id="editor" style="width: 500px; height: 400px">
+                function foo(items) {
+                    var i;
+                    for (i = 0; i &lt; items.length; i++) {
+                        alert("Ace Rocks " + items[i]);
+                    }
+            </textarea>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ext-language_tools.min.js"></script>
+
+            <script>
+                var editor = ace.edit('editor', { enableBasicAutocompletion: true, enableSnippets: true, enableLiveAutocompletion: true });
+                editor.session.setMode('https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/mode-javascript.min.js');
+            </script>
+            <h2 class="Page_Exo_Ace">Unit Tests</h2>
+            <div id="unit-tests"></div>
+        </div>
+    </div>
+{% endblock %}
