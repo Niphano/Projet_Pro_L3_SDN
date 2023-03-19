@@ -36,9 +36,11 @@ class ExercicesCrudController extends AbstractCrudController
             IdField::new('id'),
             TextField::new('title'),
             TextEditorField::new('enonce'),
+            ArrayField::new('languageCategories')->hideOnForm(),
             AssociationField::new('languageCategories')
                 ->setFormTypeOption('by_reference', false)
                 ->setCrudController(LanguageCategoryCrudController::class),
+            ArrayField::new('thematiqueCategories')->hideOnForm(),
             AssociationField::new('thematiqueCategories')
                 ->setFormTypeOption('by_reference', false)
                 ->setCrudController(ThematiqueCategoryCrudController::class),
