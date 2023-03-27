@@ -17,38 +17,6 @@ class PageExerciceController extends AbstractController
     /**
      * @Route("/page/exercice", name="app_page_exercice")
      */
-    /*
-    public function index(Request $request, ExercicesRepository $exercicesRepository, EntityManagerInterface $em): Response
-    {
-        $exercices = $em->getRepository(Exercices::class)->findAll();
-        $languageCategoryId = $request->request->get('languageCategory');
-        $thematiqueCategoryId = $request->request->get('thematiqueCategory');
-
-        $languageCategory = null;
-        $thematiqueCategory = null;
-
-        if ($languageCategoryId) {
-            $languageCategory = $em->getRepository(LanguageCategory::class)->find($languageCategoryId);
-        }
-
-        if ($thematiqueCategoryId) {
-            $thematiqueCategory = $em->getRepository(ThematiqueCategory::class)->find($thematiqueCategoryId);
-        }
-
-        $exercices = $exercicesRepository->findByCategory($languageCategory, $thematiqueCategory);
-
-        $languageCategories = $em->getRepository(LanguageCategory::class)->findAll();
-        $thematiqueCategories = $em->getRepository(ThematiqueCategory::class)->findAll();
-
-        return $this->render('page_exercice/index.html.twig', [
-            'exercices' => $exercices,
-            'languageCategories' => $languageCategories,
-            'thematiqueCategories' => $thematiqueCategories,
-            'languageCategoryId' => $languageCategoryId,
-            'thematiqueCategoryId' => $thematiqueCategoryId,
-        ]);
-    }
-    */
 
     public function index(Request $request, ExercicesRepository $exerciceRepository)
     {
@@ -84,15 +52,12 @@ class PageExerciceController extends AbstractController
     }
 
     /**
-     * @Route("page/exercice/{id}", name="app_exercice_show")
+     * @Route("/page/exercice/{id}", name="app_exercice_show")
      */
-    public function show(Request $request, Exercices $exercice): Response
+    public function show(Exercices $exercice): Response
     {
         return $this->render('page_exercice/show.html.twig', [
             'exercice' => $exercice,
         ]);
     }
-
-
-
 }
