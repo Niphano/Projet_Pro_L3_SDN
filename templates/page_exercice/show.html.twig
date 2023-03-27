@@ -3,33 +3,73 @@
 {% block title %}{{ exercice.title }}{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-8">
-            <h1>{{ exercice.title }}</h1>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <p class="card-text">{{ exercice.enonce | raw }}</p>
+
+    <div class="editor">
+        <div class="editor-container">
+            <div class="editor-body">
+                <div class="editor-body-left">
+                    <div class="titre-exercice">
+                        <h1 class="titre-exercice-font">{{ exercice.title }}</h1>
+                    </div>
+                    <div class="enonce-exercice">
+                        <p>{{ exercice.enonce | raw}}</p>
+                    </div>
+                    <div class="selector-editor">
+                        <div class="selector-mode-exercice">
+                            <select name="mode-ace-editor" id="-mode">
+                                <option value="ace/mode/javascript">Javascript</option>
+                            </select>
+                        </div>
+                        <div class="selector-theme-exercice">
+                            <select name="theme-ace-editor" id="-theme">
+                                <optgroup label="Bright">
+                                    <option value="ace/theme/chrome">Chrome</option>
+                                </optgroup>
+                                <optgroup label="Dark">
+                                    <option value="ace/theme/ambiance">Ambiance</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="editor-body-right">
+                    <div id="editorCode" class="editor-code"></div>
+                </div>
+            </div>
+            <div class="editor-footer">
+                <div class="editor-footer-left">
+                    <button class="editor__btn editor__run">Run ></button>
+                    <button class="editor__btn editor__reset">Reset ></button>
+                    <button class="editor__btn editor__save">Save ></button>
+                </div>
+                <div class="editor-footer-right">
+                    <div class="editor-console">
+                        <ul class="editor-console-logs"></ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <h2 class="Page_Exo_Ace">Code Editor</h2>
-            <textarea id="editor" style="width: 500px; height: 400px">
-                function foo(items) {
-                    var i;
-                    for (i = 0; i &lt; items.length; i++) {
-                        alert("Ace Rocks " + items[i]);
-                    }
-            </textarea>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ext-language_tools.min.js"></script>
-
-            <script>
-                var editor = ace.edit('editor', { enableBasicAutocompletion: true, enableSnippets: true, enableLiveAutocompletion: true });
-                editor.session.setMode('https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/mode-javascript.min.js');
-            </script>
-            <h2 class="Page_Exo_Ace">Unit Tests</h2>
-            <div id="unit-tests"></div>
-        </div>
     </div>
+
+
+{#        <div class="row">#}
+{#            <div class="col-md-8">#}
+{#                <h1 class="abcd">{{ exercice.title }}</h1>#}
+{#                <div class="card mb-3">#}
+{#                    <div class="card-body">#}
+{#                        <p class="card-text">{{ exercice.enonce | raw }}</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-4">#}
+{#                <h2 class="Page_Exo_Ace">Code Editor</h2>#}
+{#                <div id="editorCode" class="editor-code"></div>#}
+{#                <h2 class="Page_Exo_Ace">Unit Tests</h2>#}
+{#                <div id="unit-tests"></div>#}
+{#                <button class="editor__btn editor__run">Run ></button>#}
+{#                <button class="editor__btn editor__reset">Reset ></button>#}
+{#                <button class="editor__btn editor__save">Save ></button>#}
+{#            </div>#}
+{#        </div>#}
 {% endblock %}
