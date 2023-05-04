@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -35,7 +36,7 @@ class ExercicesCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('title'),
-            TextEditorField::new('enonce'),
+            CodeEditorField::new('enonce'),
             ArrayField::new('languageCategories')->hideOnForm(),
             AssociationField::new('languageCategories')
                 ->setFormTypeOption('by_reference', false)
