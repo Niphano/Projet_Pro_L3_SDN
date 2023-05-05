@@ -9,6 +9,8 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             <link href="{{ asset('css/main.css') }}" rel="stylesheet"/>
+            <link href="{{ asset('css/navbar.css') }}" rel="stylesheet"/>
+            <link href="{{ asset('css/ace-style.css') }}" rel="stylesheet"/>
         {% endblock %}
 
 
@@ -25,9 +27,17 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             <script src={{ asset('js/ace-editor/src-min/ace.js') }}></script>
-            <script src={{ asset('js/ace-editor/src-min/mode-javascript.js') }}></script>
+
+            {# Importation de l'autocomplétion pour ace #}
             <script src="{{ asset('js/ace-editor/src-min/ext-language_tools.js') }}"></script>
-            <script src="{{ asset('js/main.js') }}"></script>
+
+            {# Importation des fichiers js #}
+            <script src="{{ asset('js/ace-script.js') }}"></script>
+
+            {# Importation des différents mode pour ace #}
+            <script src={{ asset('js/ace-editor/src-min/mode-javascript.js') }}></script>
+            <script src={{ asset('js/ace-editor/src-min/mode-python.js') }}></script>
+            <script src={{ asset('js/ace-editor/src-min/mode-haskell.js') }}></script>
         {% endblock %}
     </body>
 </html>
