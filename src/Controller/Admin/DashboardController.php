@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Exercices;
 use App\Entity\LanguageCategory;
 use App\Entity\ThematiqueCategory;
+use App\Entity\Test;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -44,6 +45,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Exercices', 'fa fa-pdf', Exercices::class);
         yield MenuItem::linkToCrud('Langages', 'fa fa-pdf', LanguageCategory::class);
         yield MenuItem::linkToCrud('Thématiques', 'fa fa-pdf', ThematiqueCategory::class);
+        yield MenuItem::linkToCrud('Test', 'fa fa-pdf', Test::class);
 
         // Partie Logout
         yield MenuItem::section('Exit');

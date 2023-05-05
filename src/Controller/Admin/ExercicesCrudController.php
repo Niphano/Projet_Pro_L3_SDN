@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Exercices;
 use App\Entity\LanguageCategory;
 use App\Entity\ThematiqueCategory;
+use App\Entity\Test;
 use Doctrine\DBAL\Types\TextType;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -36,17 +37,22 @@ class ExercicesCrudController extends AbstractCrudController
             IdField::new('id'),
             TextField::new('title'),
             TextEditorField::new('enonce'),
+
             ArrayField::new('languageCategories')->hideOnForm(),
             AssociationField::new('languageCategories')
                 ->setFormTypeOption('by_reference', false)
                 ->setCrudController(LanguageCategoryCrudController::class),
+
             ArrayField::new('thematiqueCategories')->hideOnForm(),
             AssociationField::new('thematiqueCategories')
                 ->setFormTypeOption('by_reference', false)
                 ->setCrudController(ThematiqueCategoryCrudController::class),
 
+//            ArrayField::new('Test')->hideOnForm(),
+//            AssociationField::new('Test')
+//                ->setFormTypeOption('by_reference', false)
+//                ->setCrudController(TestCrudController::class),
 
-            TextField::new('resultat'),
             DateTimeField::new('createdAt')->setFormat('dd-MM-yyyy hh-mm'),
         ];
     }

@@ -22,7 +22,6 @@ class AjoutExerciceController extends AbstractController
         if (count($data)){
             $exercice->setTitle($data["title"]);
             $exercice->setEnonce($data["enonce"]);
-            $exercice->setResultat($data["resultat"]);
             $exercice->setCreatedAt($data["date_de_creation"]);
             $entityManager->persist($exercice);
             $entityManager->flush();

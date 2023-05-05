@@ -29,10 +29,6 @@ class Exercices
      */
     private $Enonce;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $resultat;
 
     /**
      * @ORM\Column(type="datetime")
@@ -49,10 +45,16 @@ class Exercices
      */
     private $thematiqueCategories;
 
-    public function __construct()
+    /**
+     * @ORM\OneToMany(targetEntity=Test::class, mappedBy="exercice")
+     */
+    private $tests;
+
+       public function __construct()
     {
         $this->languageCategories = new ArrayCollection();
         $this->thematiqueCategories = new ArrayCollection();
+        $this->tests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,17 +93,6 @@ class Exercices
         return $this;
     }
 
-    public function getResultat(): ?string
-    {
-        return $this->resultat;
-    }
-
-    public function setResultat(string $resultat): self
-    {
-        $this->resultat = $resultat;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -164,6 +155,36 @@ class Exercices
     {
         if ($this->thematiqueCategories->removeElement($thematiqueCategory)) {
             $thematiqueCategory->removeThematiqueCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Test>
+     */
+    public function getTests(): Collection
+    {
+        return $this->tests;
+    }
+
+    public function addTest(Test $test): self
+    {
+        if (!$this->tests->contains($test)) {
+            $this->tests[] = $test;
+            $test->setExercice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTest(Test $test): self
+    {
+        if ($this->tests->removeElement($test)) {
+            // set the owning side to null (unless already changed)
+            if ($test->getExercice() === $this) {
+                $test->setExercice(null);
+            }
         }
 
         return $this;
